@@ -8,6 +8,8 @@ class Game
   field :tries_left, type: Integer, default: 11
   enum :status, [:busy, :fail, :success]
 
+  before_create :normalize_word
+
   def normalize_word
     self.word = self.word.downcase.gsub(/[[:punct:]]/, "")
   end
@@ -21,4 +23,5 @@ class Game
 
     display
   end
+
 end
