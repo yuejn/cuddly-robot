@@ -9,6 +9,7 @@ class Game
   enum :status, [:busy, :fail, :success]
 
   before_create :normalize_word
+  after_update :check_and_update_status
 
   def normalize_word
     self.word = self.word.downcase.gsub(/[[:punct:]]/, "")
@@ -31,6 +32,13 @@ class Game
         end
         self.save!
       end
+    end
+  end
+
+  def check_and_update_status
+    if self.tries_left == 0
+      self.update(status: :fail)
+    else
     end
   end
 
