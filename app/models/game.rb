@@ -8,4 +8,17 @@ class Game
   field :tries_left, type: Integer, default: 11
   enum :status, [:busy, :fail, :success]
 
+  def normalize_word
+    self.word = self.word.downcase.gsub(/[[:punct:]]/, "")
+  end
+
+  def return_word placeholder = "."
+    display = ""
+
+    self.word.chars do |letter|
+       display += (self.guessed_letters.include? letter) ? letter : placeholder
+    end
+
+    display
+  end
 end
