@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
 
+  before_action :set_game, only: [:show, :update]
+
   def index # GET: games
     @games = Game.all
   end
@@ -16,6 +18,12 @@ class GamesController < ApplicationController
   end
 
   def update # PATCH: games/:id
+  end
+
+  private
+
+  def set_game
+    @game = Game.find(params[:id])
   end
 
 end
