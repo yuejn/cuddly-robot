@@ -18,6 +18,10 @@ class GamesController < ApplicationController
   end
 
   def update # PATCH: games/:id
+    letter = params[:char].downcase[/^[a-z]/]
+    if letter
+      @game.check_letter letter
+    end
   end
 
   private

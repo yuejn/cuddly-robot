@@ -16,12 +16,22 @@ class Game
 
   def return_word placeholder = "."
     display = ""
-
     self.word.chars do |letter|
        display += (self.guessed_letters.include? letter) ? letter : placeholder
     end
-
     display
+  end
+
+  def check_letter letter
+    if self.status == :busy
+      unless self.guessed_letters.include? letter 
+        self.guessed_letters << letter # push to array
+        unless self.word.split("").include? letter 
+          self.tries_left -= 1
+        end
+        self.save!
+      end
+    end
   end
 
 end
