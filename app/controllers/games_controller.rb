@@ -8,8 +8,7 @@ class GamesController < ApplicationController
 
   def create # POST: games
     @game = Game.create(
-      word: "test",
-      # word: Faker::Hipster.word,
+      word: Faker::Hipster.word,
       guessed_letters: [],
       status: :busy
     )

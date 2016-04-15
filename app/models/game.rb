@@ -22,16 +22,32 @@ class Game
     display
   end
 
+  def success? placeholder = "."
+    !self.return_word.include? placeholder
+  end
+
+  def failed?
+    self.tries_left <= 0
+  end
+
+  def unique_guess? letter
+    self.guessed_letters.include? letter
+  end
+
+  def successful_letter? letter
+    self.word.split("").include? letter
+  end
+
   def check_letter letter
     if self.status == :busy
-      unless self.guessed_letters.include? letter 
+      unless self.unique_guess? letter
         self.guessed_letters << letter # push to array
-        if self.word.split("").include? letter 
+        if successful_letter? letter 
           if self.success?
             self.status = :success
           end
         else
-          self.tries_left -= 1
+          self.tries_left -= 1 # decrement counter
           if self.failed?
             self.status = :fail
           end
@@ -39,14 +55,6 @@ class Game
         self.save!
       end
     end
-  end
-
-  def success? placeholder = "."
-    !self.return_word.include? placeholder
-  end
-
-  def failed?
-    self.tries_left <= 0
   end
 
 end
