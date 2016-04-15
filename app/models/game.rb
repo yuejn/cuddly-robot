@@ -30,8 +30,8 @@ class Game
     self.tries_left <= 0
   end
 
-  def unique_guess? letter
-    self.guessed_letters.include? letter
+  def unique_letter? letter
+    !self.guessed_letters.include? letter
   end
 
   def successful_letter? letter
@@ -40,7 +40,7 @@ class Game
 
   def check_letter letter
     if self.status == :busy
-      unless self.unique_guess? letter
+      unless !self.unique_letter? letter
         self.guessed_letters << letter # push to array
         if successful_letter? letter 
           if self.success?
