@@ -32,6 +32,9 @@ class Game
           end
         else
           self.tries_left -= 1
+          if self.failed?
+            self.status = :fail
+          end
         end
         self.save!
       end
@@ -43,7 +46,7 @@ class Game
   end
 
   def failed?
-    self.tries_left == 0
+    self.tries_left <= 0
   end
 
 end
